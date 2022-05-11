@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.nuance.mobility.ncs.pa.services</groupId>
+    <artifactId>pa-services-parent</artifactId>
+    <version>2.1.5</version>
+    <packaging>pom</packaging>
+    <name>pa-services-parent</name>
+
+    <properties>
+        <pa.model.version>2.1.5</pa.model.version>
+        <pa.utils.version>2.1.5</pa.utils.version>
+        <CallLogLibVersion>1.10.3</CallLogLibVersion>
+        <jacoco.version>0.7.9</jacoco.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <parent>
+            <groupId>com.nuance.mobility.toolkit</groupId>
+            <artifactId>mobility-toolkit-parent</artifactId>
+            <version>1.0.13</version>
+    </parent>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.nuance.mobility.ncs.pa.services</groupId>
+                <artifactId>pa-services-utils</artifactId>
+                <version>${pa.utils.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.nuance.calllogging</groupId>
+                        <artifactId>calllogging-library</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.nuance.calllogging</groupId>
+                <artifactId>calllogging-library</artifactId>
+                <version>${CallLogLibVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.nuance.mobility.ncs.pa.services</groupId>
+                <artifactId>pa-services-model</artifactId>
+                <version>${pa.model.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>1.19.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.6</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <argLine>${argLine}</argLine>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
